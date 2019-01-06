@@ -1,8 +1,9 @@
 #external modules
 from collections import namedtuple
 import cv2
+
 #local modules
-from duckie_bot.modes.mode import Mode
+from duckie_bot.mode import Mode
 
 class DrunkDriver(Mode):
     '''

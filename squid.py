@@ -4,7 +4,7 @@ import cv2, os, random
 from pathlib import Path
 
 #local modules
-from duckie_bot.modes.mode import Mode
+from duckie_bot.mode import Mode
 
 class Squid(Mode):
     '''

@@ -2,7 +2,7 @@
 from collections import namedtuple
 
 #local modules
-from duckie_bot.modes.mode import Mode
+from duckie_bot.mode import Mode
 
 class Driver(Mode):
     '''
