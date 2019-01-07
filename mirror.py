@@ -1,32 +1,25 @@
 #external modules
-from collections import namedtuple
 import cv2
 
 #local modules
 from DuckieBotModes import Driver
 
 class Mirror(Driver):
-    '''
-    '''
-    def __init__(self, camera=None, car=None):
-        '''
-        '''
-        Driver.__init__(self, camera=camera, car=car)
 
-    def tick(self, keys_pressed):
+    def tick(self):
         '''
         '''
         #starting values (to be compared later)
         start_speed = self.speed
         start_omega = self.omega
 
-        if "W" in keys_pressed:#up
+        if "W" in self.keys_pressed:#up
             self.speed += self.speed_forces.applied
-        if "S" in keys_pressed:#down
+        if "S" in self.keys_pressed:#down
             self.speed -= self.speed_forces.applied
-        if "A" in keys_pressed:#left
+        if "A" in self.keys_pressed:#left
             self.omega -= self.omega_forces.applied
-        if "D" in keys_pressed:#right
+        if "D" in self.keys_pressed:#right
             self.omega += self.omega_forces.applied
         self.speed = self.drag(self.speed, self.speed_forces.drag)
         self.omega = self.drag(self.omega, self.omega_forces.drag)

@@ -1,11 +1,8 @@
 #external modules
-from collections import namedtuple
 import cv2
 import numpy as np
 import os
 from pathlib import Path
-import random
-
 
 #local modules
 from DuckieBotModes.driver import Driver
@@ -13,10 +10,10 @@ from DuckieBotModes.driver import Driver
 class Squid(Driver):
     '''
     '''
-    def __init__(self, camera=None, car=None):
+    def __init__(self):
         '''
         '''
-        Driver.__init__(self, camera=camera, car=car)
+        Driver.__init__(self)
         image_path = Path(os.path.realpath(__file__))/".."/"ink.png"
         self.ink = cv2.imread(str(image_path.resolve()), cv2.IMREAD_UNCHANGED)
         self.ink.reshape(self.ink.shape[0]*self.ink.shape[1], 4)
