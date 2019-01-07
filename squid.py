@@ -1,6 +1,7 @@
 #external modules
 from collections import namedtuple
 import cv2
+import numpy as np
 import os
 from pathlib import Path
 import random
@@ -16,21 +17,22 @@ class Squid(Driver):
         '''
         '''
         Driver.__init__(self, camera=camera, car=car)
+        image_path = Path(os.path.realpath(__file__))/".."/"ink.png"
+        self.ink = cv2.imread(str(image_path.resolve()), cv2.IMREAD_UNCHANGED)
+        self.ink.reshape(self.ink.shape[0]*self.ink.shape[1], 4)
 
     def frame(self, frame):
         '''
         '''
-        # background = frame
-        # self.imgpath='ink9.png'
-        # print(self.imgpath)
-        # overlay = cv2.imread('gui/static/ink_img/'+self.imgpath)
-        # overlay = cv2.resize(overlay, (background.shape[1], background.shape[0]))
-        # background = cv2.imread('gui/static/ink_img/ink8.png')
-        # background = cv2.flip( background, 1 )
-        # cv2.imshow('image',background)
+        ink_pixels = cv2.resize(self.ink, (frame.shape[1], frame.shape[0]))
+        ink_pixels = ink_pixels.reshape(frame.shape[0]*frame.shape[1], 4)
+        frame_pixels = frame.reshape(frame.shape[0]*frame.shape[1], 3)
 
-        # print(os.getcwd())
-        # print (Path('.'))
-        # added_image = cv2.addWeighted(background,0.7,overlay,0.3,0)
+        # handles the blending of the two images
+        is_zero = (ink_pixels[:,3] == 0)
+        is_zero = np.array([is_zero, is_zero, is_zero]).transpose()
+        frame_pixels = frame_pixels*(is_zero) + ink_pixels[:, 0:3]*(is_zero != True)
+
+        frame = frame_pixels.reshape(frame.shape[0], frame.shape[1], 3)
 
         return frame
