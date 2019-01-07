@@ -3,44 +3,15 @@ from collections import namedtuple
 import cv2
 
 #local modules
-from duckie_bot.mode import Mode
+from DuckieBotModes import Driver
 
-class Mirror(Mode):
+class Mirror(Driver):
     '''
     '''
     def __init__(self, camera=None, car=None):
         '''
         '''
-        Mode.__init__(self, camera=camera, car=car)
-
-        #forces applied to speeds
-        Forces = namedtuple("Forces", ["applied", "drag"])
-        self.speed_forces = Forces(applied=0.3, drag=0.2)
-        self.omega_forces = Forces(applied=0.3, drag=0.2)
-
-        #speeds themselves
-        self.speed = 0
-        self.omega = 0
-
-        #abstraction to hardware
-        self.car = car
-
-    def drag(self, speed, drag):
-        if speed < -drag:
-            speed += drag
-        elif speed < 0:
-            speed = 0
-        if speed > drag:
-            speed -= drag
-        elif speed > 0:
-            speed = 0
-        #puts a cap limit on max speed
-        if abs(speed - 0) < 0.0001:
-            speed = 0
-        if speed < 0:
-            return max(speed, -1)
-        else:
-            return min(speed, 1)
+        Driver.__init__(self, camera=camera, car=car)
 
     def tick(self, keys_pressed):
         '''

@@ -1,8 +1,6 @@
 #external modules
 from collections import namedtuple
-
-#local modules
-from duckie_bot.mode import Mode
+from duckie_bot import Mode
 
 class Driver(Mode):
     '''
@@ -20,9 +18,6 @@ class Driver(Mode):
         #speeds themselves
         self.speed = 0
         self.omega = 0
-
-        #abstraction to hardware
-        self.car = car
 
     def drag(self, speed, drag):
         if speed < -drag:
@@ -52,7 +47,6 @@ class Driver(Mode):
         if "A" in keys_pressed:#left
             self.omega += self.omega_forces.applied
         if "D" in keys_pressed:#right
-            # print('driver turn right')
             self.omega -= self.omega_forces.applied
         self.speed = self.drag(self.speed, self.speed_forces.drag)
         self.omega = self.drag(self.omega, self.omega_forces.drag)
