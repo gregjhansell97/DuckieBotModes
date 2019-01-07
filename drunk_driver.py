@@ -1,6 +1,7 @@
 #external modules
 from collections import namedtuple
 import cv2
+import random
 
 #local modules
 from DuckieBotModes import Driver
@@ -14,6 +15,7 @@ class DrunkDriver(Driver):
         Driver.__init__(self, camera=camera, car=car)
 
     def drag(self, speed, drag):
+        drag = (random.random()*1.2) - 0.2
         if speed < -drag:
             speed += drag
         elif speed < 0:
