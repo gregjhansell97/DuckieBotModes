@@ -4,10 +4,15 @@ from duckie_bot import Mode
 
 class Driver(Mode):
     '''
+    base driver for the other driver modes in this package
+
+    Attributes:
+        speed_forces(namedtuple): forces affecting speed
+        speed(int): speed of the driver
+        omega_forces(namedtuple): forces affecting rotational velocity
+        omega(int): rotational velocity
     '''
     def __init__(self):
-        '''
-        '''
         #forces applied to speeds
         Forces = namedtuple("Forces", ["applied", "drag"])
         self.speed_forces = Forces(applied=0.7, drag=0.5)
@@ -18,6 +23,13 @@ class Driver(Mode):
         self.omega = 0
 
     def drag(self, speed, drag):
+        '''
+        given drag and current speed what is the next speed
+
+        Args:
+            speed(int): current speed
+            drag(fload): drag that will change the speed
+        '''
         if speed < -drag:
             speed += drag
         elif speed < 0:
@@ -35,6 +47,9 @@ class Driver(Mode):
             return min(speed, 1)
 
     def tick(self):
+        '''
+        implementation of abstract method in parent
+        '''
         start_speed = self.speed
         start_omega = self.omega
 
@@ -57,4 +72,7 @@ class Driver(Mode):
             self.car.set_omega(self.omega)
 
     def frame(self, frame):
+        '''
+        implementation of abstract method in parent
+        '''
         return frame

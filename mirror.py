@@ -5,9 +5,12 @@ import cv2
 from DuckieBotModes import Driver
 
 class Mirror(Driver):
-
+    '''
+    flips the frame across the y-axis as well as the controls
+    '''
     def tick(self):
         '''
+        implementation of method in parent (overriding)
         '''
         #starting values (to be compared later)
         start_speed = self.speed
@@ -33,6 +36,7 @@ class Mirror(Driver):
 
     def frame(self, frame):
         '''
+        implementation of method in parent (overriding)
         '''
         frame = cv2.flip( frame, 1 )
         return frame

@@ -6,8 +6,12 @@ from DuckieBotModes import Driver
 
 class DrunkDriver(Driver):
     '''
+    varies the drag of the wheel and distorts the image for each frame to emulate a drunk driver
     '''
     def drag(self, speed, drag):
+        '''
+        implementation of method in parent (overriding)
+        '''
         drag = random.random()
         if speed < -drag:
             speed += drag
@@ -26,5 +30,8 @@ class DrunkDriver(Driver):
             return min(speed, 1)
 
     def frame(self, frame):
+        '''
+        implementation of method in parent (overriding)
+        '''
         #TODO distort frame
         return frame
